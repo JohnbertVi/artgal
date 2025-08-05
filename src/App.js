@@ -21,6 +21,7 @@ import logospin from "./assets/logospin.png";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminApproved from "./pages/admin/AdminApproved";
 import SearchAUser from "./pages/SearchAUser";
+import SearchArt from "./pages/SearchArt";
 import UserProfile from "./pages/UserProfile";
 import ArtInfo from "./pages/ArtInfo";
 import EditArt from "./pages/EditArt";
@@ -130,6 +131,10 @@ function AppRoutes() {
             <Route
               path="/search/user"
               element={user ? <SearchAUser /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/search/art"
+              element={user ? <SearchArt /> : <Navigate to="/" />}
             />
             <Route
               path="/user/profile/:studentNumber"
