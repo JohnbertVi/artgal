@@ -7,11 +7,13 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import Swal from "sweetalert2";
+import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -88,42 +90,38 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 relative">
       <img
-        className="z-[-1] absolute h-screen w-screen mx-auto object-cover pointer-events-none select-none"
+        className="fixed inset-0 w-full h-full object-cover opacity-70 pointer-events-none select-none"
         src={bg}
         alt="background"
       />
-      <div className="max-w-md p-10 rounded-md bg-gray-50 w-full space-y-8">
+      <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-12 flex flex-col gap-8 relative z-10">
         <div>
-          <h2 className="mt-6 text-center text-2xl md:text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+          <h2 className="text-center text-4xl font-extrabold text-gray-900 mb-2 tracking-tight">
+            Log in
           </h2>
-          <h1 className="text-center text-xs">
-            If you don't have an account yet,{" "}
-            <Link to="/register" className="text-primary font-bold">
+          <p className="text-center text-sm text-gray-500">
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="text-primary font-semibold underline underline-offset-2 hover:text-primary/80 transition"
+            >
               Register
             </Link>
-          </h1>
+          </p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <input type="hidden" name="remember" value="true" />
-          <div className="rounded-md space-y-1 shadow-sm ">
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-4">
             <div>
-              <label htmlFor="email-address" className="sr-only">
+              <label
+                htmlFor="email-address"
+                className="block text-xs font-medium text-gray-700 mb-1"
+              >
                 Email address
               </label>
-
-              <label className="input input-bordered flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className="w-4 h-4 opacity-70"
-                >
-                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-                </svg>
+              <div className="relative">
                 <input
                   id="email-address"
                   name="email"
@@ -132,62 +130,70 @@ const Login = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="grow"
-                  placeholder="Email address"
+                  className="w-full px-4 py-3 pl-10 rounded-lg border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-gray-100 text-gray-900 transition"
+                  placeholder="Name@email.com"
                 />
-              </label>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <FaUser className="w-5 h-5" />
+                </span>
+              </div>
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">
+              <label
+                htmlFor="password"
+                className="block text-xs font-medium text-gray-700 mb-1"
+              >
                 Password
               </label>
-
-              <label className="input input-bordered flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className="w-4 h-4 opacity-70"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+              <div className="relative">
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="grow"
+                  className="w-full px-4 py-3 pl-10 pr-10 rounded-lg border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-gray-100 text-gray-900 transition"
                   placeholder="Password"
                 />
-              </label>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <FaLock className="w-5 h-5" />
+                </span>
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <FaEyeSlash className="w-5 h-5" />
+                  ) : (
+                    <FaEye className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
-          {error && <p className="text-red-500 text-center">{error}</p>}
+          {error && <p className="text-red-500 text-center text-sm">{error}</p>}
 
           <div className="flex items-center justify-between">
-            <div className="text-xs">
-              <button
-                type="button"
-                className="btn btn-ghost btn-xs"
-                onClick={handleForgotPassword}
-              >
-                Forgot your password?
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <button type="submit" className="btn btn-primary w-full text-white">
-              Sign in
+            <button
+              type="button"
+              className="text-xs text-primary hover:underline hover:text-primary/80 transition"
+              onClick={handleForgotPassword}
+            >
+              Forgot your password?
             </button>
           </div>
+
+          <button
+            type="submit"
+            className="w-full py-3 rounded-lg bg-primary text-white font-semibold text-base shadow hover:bg-primary/90 transition"
+          >
+            Sign in
+          </button>
         </form>
       </div>
     </div>
