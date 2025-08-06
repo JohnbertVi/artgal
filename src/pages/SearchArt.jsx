@@ -51,12 +51,13 @@ const SearchArt = () => {
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredArts.map((art) => (
           <li key={art.id} className="bg-white flex flex-col justify-between items-center p-4 shadow rounded-md">
-            <div className="w-full flex justify-center mb-2">
+            <div className="w-full flex justify-center mb-2 art-container">
               <img
                 src={art.photos && art.photos[0] ? art.photos[0] : 'https://via.placeholder.com/300x200?text=No+Image'}
                 alt={art.title ? `Artwork: ${art.title}` : 'Artwork'}
-                className="w-full max-w-xs h-48 object-cover border border-secondary rounded shadow"
+                className="w-full max-w-xs h-48 object-cover border border-secondary rounded shadow art-image"
               />
+              <div className="art-overlay"></div>
             </div>
             <div className="w-full text-center">
               <h3 className="text-lg font-semibold mt-2">{art.title}</h3>

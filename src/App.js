@@ -9,6 +9,7 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 import { firestore } from "./firebaseConfig";
+import ImageProtection from "./components/ImageProtection";
 import Login from "./pages/authentication/Login";
 import Registration from "./pages/authentication/Registration";
 import Hero from "./pages/Hero";
@@ -98,6 +99,7 @@ function AppRoutes() {
 
   return (
     <div className="App">
+      <ImageProtection />
       {!isNavbarHidden && <Navbar />}
 
       <Routes>
