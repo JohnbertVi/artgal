@@ -153,14 +153,85 @@ const ArtInfo = () => {
     Swal.fire({
       imageAlt: "Art",
       html: `
-        <div style="position: relative;">
-          <img src="${imageUrl}" alt="Art" class="swal2-image-fullscreen mx-auto"/>
-          <span class="absolute inset-0 flex items-center select-none pointer-events-none justify-center text-black font-extrabold uppercase text-2xl opacity-40">${watermark}</span>  
+        <div style="position: relative;" class="art-container">
+          <img src="${imageUrl}" alt="Art" class="swal2-image-fullscreen mx-auto art-image"/>
+          <span class="absolute inset-0 flex items-center select-none pointer-events-none justify-center text-black font-extrabold uppercase text-2xl opacity-40 art-watermark">${watermark}</span>  
+          <div class="art-overlay"></div>
         </div>
       `,
       showCloseButton: false,
       showConfirmButton: false,
       focusConfirm: false,
+      didOpen: () => {
+        const imgElem = document.querySelector('.swal2-image-fullscreen');
+        const overlay = document.createElement('div');
+        overlay.className = 'art-overlay swal2-overlay-protect';
+        overlay.style.position = 'absolute';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.background = 'rgba(0,0,0,0.7)';
+        overlay.style.color = 'white';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.fontSize = '2vw';
+        overlay.style.fontWeight = 'bold';
+        overlay.style.zIndex = '100';
+        overlay.style.pointerEvents = 'none';
+        overlay.style.opacity = '0';
+        overlay.innerText = 'Protected Artwork';
+        // Add overlay to modal
+        const container = document.querySelector('.swal2-popup .art-container');
+        if (container) container.appendChild(overlay);
+        // Helper functions
+        const showOverlay = () => {
+          overlay.style.opacity = '1';
+          if (imgElem) imgElem.classList.add('art-blurred');
+        };
+        const hideOverlay = () => {
+          overlay.style.opacity = '0';
+          if (imgElem) imgElem.classList.remove('art-blurred');
+        };
+        // Always blur when window loses focus
+        window.addEventListener('blur', showOverlay);
+        window.addEventListener('focus', hideOverlay);
+        // Also blur on visibility change (tab switch)
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState !== 'visible') {
+            showOverlay();
+          } else {
+            hideOverlay();
+          }
+        });
+        // Screenshot key detection
+        const screenshotKeys = (e) => {
+          if (
+            e.key === 'PrintScreen' ||
+            (e.ctrlKey && (e.key === 's' || e.key === 'p' || e.key === 'c')) ||
+            (e.shiftKey && e.key.toLowerCase() === 's' && (e.metaKey || e.getModifierState('Meta') || e.getModifierState('OS')))
+          ) {
+            showOverlay();
+            setTimeout(hideOverlay, 5000);
+          }
+        };
+        document.addEventListener('keydown', screenshotKeys);
+        // Clean up event listeners when modal closes
+        Swal.getPopup().addEventListener('swal2:close', () => {
+          window.removeEventListener('blur', showOverlay);
+          window.removeEventListener('focus', hideOverlay);
+          document.removeEventListener('visibilitychange', showOverlay);
+          document.removeEventListener('keydown', screenshotKeys);
+          if (container && overlay) container.removeChild(overlay);
+        });
+        // Initial state: always show overlay if not focused
+        if (document.visibilityState !== 'visible' || document.hasFocus() === false) {
+          showOverlay();
+        } else {
+          hideOverlay();
+        }
+      }
     });
   };
 
@@ -270,16 +341,17 @@ const ArtInfo = () => {
               key={index}
               onClick={() => openImageInFullScreen(photo, user.watermark)}
             >
-              <div style={{ position: "relative" }}>
+              <div style={{ position: "relative" }} className="art-container">
                 <img
                   key={index}
-                  className={`w-full object-cover rounded-lg h-56 cursor-pointer`}
+                  className={`w-full object-cover rounded-lg h-56 cursor-pointer art-image`}
                   src={photo}
                   alt={`Arts ${index + 1}`}
                 />
-                <span className="absolute inset-0 flex items-center select-none pointer-events-none justify-center text-black font-extrabold uppercase text-xs md:text-lg lg:text-2xl opacity-40">
+                <span className="absolute inset-0 flex items-center select-none pointer-events-none justify-center text-black font-extrabold uppercase text-xs md:text-lg lg:text-2xl opacity-40 art-watermark">
                   {user.watermark}
                 </span>
+                <div className="art-overlay"></div>
               </div>
             </div>
           ))}

@@ -9,6 +9,7 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 import { firestore } from "./firebaseConfig";
+import ImageProtection from "./components/ImageProtection";
 import Login from "./pages/authentication/Login";
 import Registration from "./pages/authentication/Registration";
 import Hero from "./pages/Hero";
@@ -21,6 +22,7 @@ import logospin from "./assets/logospin.png";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminApproved from "./pages/admin/AdminApproved";
 import SearchAUser from "./pages/SearchAUser";
+import SearchArt from "./pages/SearchArt";
 import UserProfile from "./pages/UserProfile";
 import ArtInfo from "./pages/ArtInfo";
 import EditArt from "./pages/EditArt";
@@ -97,6 +99,7 @@ function AppRoutes() {
 
   return (
     <div className="App">
+      <ImageProtection />
       {!isNavbarHidden && <Navbar />}
 
       <Routes>
@@ -130,6 +133,10 @@ function AppRoutes() {
             <Route
               path="/search/user"
               element={user ? <SearchAUser /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/search/art"
+              element={user ? <SearchArt /> : <Navigate to="/" />}
             />
             <Route
               path="/user/profile/:studentNumber"

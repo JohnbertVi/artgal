@@ -82,17 +82,18 @@ const Gallery = () => {
                     <h1 className="text-2xl font-semibold mb-2">{art.title}</h1>
                     <p className="text-gray-600">{art.description}</p>
                   </div>
-                  <div className="relative">
+                  <div className="relative art-container">
                     <img
-                      className="w-full h-36 object-cover rounded-lg mb-2"
+                      className="w-full h-36 object-cover rounded-lg mb-2 art-image"
                       src={art.photos[0]}
                       alt={`Arts 1`}
                     />
                     {users[art.userId] && (
-                      <span className="absolute inset-0 flex items-center select-none pointer-events-none justify-center text-black font-extrabold uppercase text-2xl opacity-40">
+                      <span className="absolute inset-0 flex items-center select-none pointer-events-none justify-center text-black font-extrabold uppercase text-2xl opacity-40 art-watermark">
                         {users[art.userId].watermark}
                       </span>
                     )}
+                    <div className="art-overlay"></div>
                   </div>
                   <div className="flex gap-2">
                     <h1 className=" px-2 text-xs rounded-md text-white py-1 bg-primary">
