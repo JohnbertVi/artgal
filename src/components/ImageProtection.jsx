@@ -209,7 +209,7 @@ const ImageProtection = () => {
         font-size: 150% !important;
       }
       
-      /* Create a dynamic grid pattern overlay */
+      /* Remove grid pattern overlay from .art-container::before */
       .art-container::before {
         content: "";
         position: absolute;
@@ -217,22 +217,9 @@ const ImageProtection = () => {
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,0.1) 0px,
-          rgba(255,255,255,0.1) 1px,
-          transparent 1px,
-          transparent 10px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,0.1) 0px,
-          rgba(255,255,255,0.1) 1px,
-          transparent 1px,
-          transparent 10px
-        );
         pointer-events: none;
         z-index: 15;
+        background: none !important;
       }
       
       /* Add protection for modal/popup images as well */
