@@ -17,30 +17,61 @@ const ImageProtection = () => {
     // Helper function to activate protection
     const activateProtection = (message, showAlert = false) => {
       screenshotAttemptCount++;
-      
-      // Make all art images protected
-      document.querySelectorAll('.art-image').forEach(img => {
-        img.classList.add('art-protected');
-        // Keep protection for a variable amount of time based on attempts
-        setTimeout(() => {
-          if (!isMouseOnImage) {
-            img.classList.remove('art-protected');
-          }
-        }, Math.min(screenshotAttemptCount * 5000, 30000)); // Increase protection time with attempts
-      });
-      
-      // Add watermark overlay at higher opacity
+
+      // Make watermark more visible briefly
       document.querySelectorAll('.art-watermark').forEach(watermark => {
+        // Prepare tiled SVG background using the watermark text so screenshots include repeated watermark
+        const text = (watermark.textContent || watermark.dataset.text || '').trim();
+        if (text) {
+          watermark.dataset.orig = watermark.textContent;
+          // create small SVG with the watermark text
+          const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='300' height='80'><rect width='100%' height='100%' fill='rgba(0,0,0,0)'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='rgba(255,255,255,0.18)' font-weight='700'>${text}</text></svg>`;
+          const encoded = encodeURIComponent(svg);
+          watermark.style.backgroundImage = `url("data:image/svg+xml;utf8,${encoded}")`;
+          watermark.style.backgroundRepeat = 'repeat';
+          watermark.style.backgroundPosition = '0 0';
+          watermark.style.backgroundSize = '240px 80px';
+          watermark.classList.add('watermark-tiled');
+          // hide textual content (keeps text in dataset)
+          watermark.textContent = '';
+        }
+
+        // Emphasize center watermark as well
         watermark.classList.add('watermark-visible');
-        setTimeout(() => {
-          watermark.classList.remove('watermark-visible');
-        }, Math.min(screenshotAttemptCount * 5000, 30000));
       });
-      
-      if (showAlert && screenshotAttemptCount > 3) {
-        alert(message + " - Protection measures intensified.");
+
+      // Show a transient overlay message on top of artworks (no blur)
+      document.querySelectorAll('.art-overlay').forEach(overlay => {
+        // Put an icon + message in the overlay
+        overlay.innerHTML = `<span class=\"protect-icon\">⚠</span><span class=\"protect-text\">${message}</span>`;
+        overlay.classList.add('protection-visible');
+        setTimeout(() => {
+          overlay.classList.remove('protection-visible');
+          overlay.innerHTML = '';
+        }, 2200);
+      });
+
+      // only show a browser alert for extreme repeated attempts if explicitly requested
+      if (showAlert && screenshotAttemptCount > 6) {
+        try { window.alert(message + ' - Please stop attempts to copy artwork.'); } catch (e) {}
       }
-      
+
+      // revert tiled watermark after a short time
+      setTimeout(() => {
+        document.querySelectorAll('.art-watermark.watermark-tiled').forEach(watermark => {
+          if (watermark.dataset && watermark.dataset.orig !== undefined) {
+            watermark.textContent = watermark.dataset.orig;
+            delete watermark.dataset.orig;
+          }
+          watermark.style.backgroundImage = '';
+          watermark.style.backgroundRepeat = '';
+          watermark.style.backgroundPosition = '';
+          watermark.style.backgroundSize = '';
+          watermark.classList.remove('watermark-tiled');
+          watermark.classList.remove('watermark-visible');
+        });
+      }, Math.min(screenshotAttemptCount * 3000, 10000));
+
       lastBlurTime = Date.now();
     };
     
@@ -48,7 +79,7 @@ const ImageProtection = () => {
     const handleContextMenu = (e) => {
       if (e.target.tagName === 'IMG' || e.target.closest('.art-container')) {
         e.preventDefault();
-        activateProtection("Right-clicking is disabled to protect artwork", false);
+        activateProtection('Right-clicking is disabled to protect artwork', false);
         return false;
       }
     };
@@ -57,7 +88,7 @@ const ImageProtection = () => {
     const handleDragStart = (e) => {
       if (e.target.tagName === 'IMG' || e.target.closest('.art-container')) {
         e.preventDefault();
-        activateProtection("Dragging images is disabled", false);
+        activateProtection('Dragging images is disabled', false);
         return false;
       }
     };
@@ -73,7 +104,7 @@ const ImageProtection = () => {
       ) {
         e.preventDefault();
         e.stopPropagation();
-        activateProtection("Screenshot attempt detected", true);
+        activateProtection('Screenshot attempt detected', true);
         return false;
       }
     };
@@ -81,51 +112,38 @@ const ImageProtection = () => {
     // Handle visibility change (tab switching, etc.)
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
-        activateProtection("Visibility change detected", false);
+        // show watermark briefly but do not blur
+        activateProtection('Visibility change detected', false);
       }
     };
     
     // Handle window blur/focus (switching apps)
     const handleWindowBlur = () => {
-      activateProtection("Window focus change detected", false);
+      activateProtection('Window focus change detected', false);
     };
     
-    // Mouse enter/leave for art containers
+    // Mouse enter/leave for art containers - no blur, just track hover
     const handleMouseEnter = (e) => {
-      if (e.target.classList.contains('art-container') || e.target.closest('.art-container')) {
+      if (e.target.classList && (e.target.classList.contains('art-container') || e.target.closest('.art-container'))) {
         isMouseOnImage = true;
-        const imageEl = e.target.querySelector('.art-image') || e.target.closest('.art-container').querySelector('.art-image');
-        if (imageEl && Date.now() - lastBlurTime > 3000) {
-          imageEl.classList.remove('art-protected');
-        }
       }
     };
     
     const handleMouseLeave = (e) => {
-      if (e.target.classList.contains('art-container') || e.target.closest('.art-container')) {
+      if (e.target.classList && (e.target.classList.contains('art-container') || e.target.closest('.art-container'))) {
         isMouseOnImage = false;
-        const imageEl = e.target.querySelector('.art-image') || e.target.closest('.art-container').querySelector('.art-image');
-        if (imageEl) {
-          imageEl.classList.add('art-protected');
-          // Only remove protection after a delay and if protection is no longer needed
-          setTimeout(() => {
-            if (!isMouseOnImage && Date.now() - lastBlurTime > 5000) {
-              imageEl.classList.remove('art-protected');
-            }
-          }, 1000);
-        }
       }
     };
     
-    // Constant random movement of watermark
+    // Constant random movement of watermark (subtle)
     const moveWatermarks = () => {
       document.querySelectorAll('.art-watermark').forEach(watermark => {
-        const angle = Math.random() * 10 - 5; // Random angle between -5 and 5 degrees
+        const angle = (Math.random() * 6) - 3; // Random angle between -3 and 3 degrees
         watermark.style.transform = `rotate(${angle}deg)`;
       });
     };
     
-    const watermarkInterval = setInterval(moveWatermarks, 500);
+    const watermarkInterval = setInterval(moveWatermarks, 800);
     
     // Add event listeners
     document.addEventListener('contextmenu', handleContextMenu, true);
@@ -187,29 +205,75 @@ const ImageProtection = () => {
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 10;
+        z-index: 40;
         pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.05rem;
+        opacity: 0;
+        transition: opacity 220ms ease-in-out, transform 220ms ease-in-out;
+        transform: translateY(6px);
+      }
+      
+      .art-overlay.protection-visible {
+        opacity: 1;
+        transform: translateY(0);
+        background: rgba(0,0,0,0.45);
+        color: #fff;
+        text-align: center;
+        padding: 0.75rem 1rem;
+        pointer-events: none;
+      }
+
+      .art-overlay .protect-icon {
+        margin-right: 0.6rem;
+        font-size: 1.2rem;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .art-overlay .protect-text {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 1rem;
       }
       
       .art-image {
-        transition: all 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
       }
       
-      .art-protected {
-        filter: blur(20px) brightness(0.7) !important;
-      }
-      
+      /* keep watermark subtle by default */
       .art-watermark {
         z-index: 30;
-        transition: opacity 0.3s ease, transform 0.5s ease;
+        transition: opacity 0.3s ease, transform 0.5s ease, background 0.3s ease;
+        opacity: 0.35;
+        font-size: 1.6rem;
+        color: rgba(211,47,47,0.9);
+        font-weight: 700;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        text-align: center;
+        pointer-events: none;
+        padding: 0 6px;
+      }
+      
+      .art-watermark.watermark-tiled {
+        color: transparent !important;
+        background-repeat: repeat !important;
+        background-position: 0 0 !important;
+        background-size: 240px 80px !important;
       }
       
       .watermark-visible {
         opacity: 0.9 !important;
-        font-size: 150% !important;
+        font-size: 2rem !important;
       }
       
-      /* Create a dynamic grid pattern overlay */
+      /* Remove grid pattern overlay from .art-container::before */
       .art-container::before {
         content: "";
         position: absolute;
@@ -217,43 +281,9 @@ const ImageProtection = () => {
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,0.1) 0px,
-          rgba(255,255,255,0.1) 1px,
-          transparent 1px,
-          transparent 10px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,0.1) 0px,
-          rgba(255,255,255,0.1) 1px,
-          transparent 1px,
-          transparent 10px
-        );
         pointer-events: none;
         z-index: 15;
-      }
-      
-      /* Add protection for modal/popup images as well */
-      .swal2-popup .art-container::after {
-        content: "Protected Artwork";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: rgba(255,255,255,0.8);
-        font-size: 2vw;
-        font-weight: bold;
-        text-shadow: 0 0 5px black;
-        background-color: rgba(0,0,0,0.3);
-        z-index: 25;
-        pointer-events: none;
-        opacity: 0.5;
+        background: none !important;
       }
     `;
     document.head.appendChild(style);

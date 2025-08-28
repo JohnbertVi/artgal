@@ -88,6 +88,12 @@ const Gallery = () => {
                       src={art.photos[0]}
                       alt={`Arts 1`}
                     />
+                    {/* Copyright watermark overlay */}
+                    <span className="absolute bottom-2 right-2 px-2 py-1 bg-black bg-opacity-60 text-white text-xs rounded art-copyright select-none pointer-events-none">
+                      © {new Date().getFullYear()}{" "}
+                      {users[art.userId]?.firstName || "Artist"}{" "}
+                      {users[art.userId]?.lastName || ""} - All Rights Reserved
+                    </span>
                     {users[art.userId] && (
                       <span className="absolute inset-0 flex items-center select-none pointer-events-none justify-center text-black font-extrabold uppercase text-2xl opacity-40 art-watermark">
                         {users[art.userId].watermark}
