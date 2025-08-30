@@ -296,7 +296,7 @@ const ArtInfo = () => {
             <div className="flex gap-1">
               {art.userId !== currentUser.uid && (
                 <Link
-                  className="btn btn-secondary text-white btn-xs"
+                  className="btn bg-[#fee67c] text-[#295e2f] hover:bg-[#f4dd7a] hover:shadow-sm btn-xs"
                   to={`/user/profile/${user.studentNumber}`}
                 >
                   View Profile
@@ -360,7 +360,7 @@ const ArtInfo = () => {
         <div className="flex items-center justify-between gap-2 mt-4">
           <div>
             <button
-              className="btn btn-xs md:btn-sm btn-primary"
+              className="btn btn-xs md:btn-sm bg-[#295e2f] hover:bg-green-800 text-white"
               onClick={liked ? handleUnlike : handleLike}
             >
               {liked ? "Liked" : "Like"}
@@ -370,9 +370,9 @@ const ArtInfo = () => {
           <div className="flex flex-col items-center">
             <div className="flex justify-center flex-col items-center">
               <div className="stat-title">Total Likes</div>
-              <div className="font-bold flex items-center gap-1 text-primary">
+              <div className="font-bold flex items-center gap-1 text-red-700">
                 {likeCount}
-                <FaHeart />
+                <FaHeart  />
               </div>
             </div>
           </div>
@@ -422,7 +422,7 @@ const ArtInfo = () => {
           onChange={(e) => setComment(e.target.value)}
         />
         <button
-          className="btn btn-xs md:btn-sm btn-secondary mt-2"
+          className="btn btn-xs md:btn-sm text-[#295e2f] py-1 bg-[#fee67c] hover:bg-[#e9d372] mt-2"
           onClick={handleComment}
         >
           Add Comment

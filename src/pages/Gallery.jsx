@@ -64,7 +64,7 @@ const Gallery = () => {
               <Link key={art.id} to={`/art/info/${art.id}`}>
                 <div
                   key={art.id}
-                  className="glass rounded-lg flex flex-col justify-between h-full shadow hover:shadow-secondary p-4 cursor-pointer relative"
+                  className="glass rounded-lg flex flex-col justify-between h-full p-4 cursor-pointer relative transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg"
                 >
                   {users[art.userId] && (
                     <div className="flex items-center mt-4">
@@ -102,10 +102,10 @@ const Gallery = () => {
                     <div className="art-overlay"></div>
                   </div>
                   <div className="flex gap-2">
-                    <h1 className=" px-2 text-xs rounded-md text-white py-1 bg-primary">
+                    <h1 className=" px-2 text-xs rounded-md text-white py-1 bg-[#295e2f] hover:bg-green-800">
                       Likes: {art.likes.length}
                     </h1>
-                    <h1 className=" px-2 text-xs rounded-md text-white py-1 bg-secondary">
+                    <h1 className=" px-2 text-xs rounded-md text-[#295e2f] py-1 bg-[#fee67c] hover:bg-[#e9d372]">
                       Comments: {art.comments.length}
                     </h1>
                   </div>

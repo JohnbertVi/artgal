@@ -127,7 +127,7 @@ const Navbar = () => {
             className="dropdown-content  space-y-1 menu p-2 shadow bg-base-100 rounded-box w-40"
           >
             <li>
-              <Link className="btn-xs btn-primary text-white btn" to="/profile">
+              <Link className="btn-xs bg-[#295e2f] text-white btn" to="/profile">
                 Profile
               </Link>
             </li>

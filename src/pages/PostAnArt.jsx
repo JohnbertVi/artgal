@@ -124,7 +124,7 @@ const PostAnArt = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">
+        <h1 className="text-4xl font-extrabold tracking-wide text-center text-gray-800 mb-8">
           <span className="text-primary">Post</span> an{" "}
           <span className="underline decoration-4 decoration-secondary">
             Ar
@@ -168,7 +168,7 @@ const PostAnArt = () => {
               accept="image/*"
             />
             <button
-              className="btn btn-secondary text-black btn-sm"
+              className="btn bg-[#fee67c] hover:bg-[#e9d372] text-[#295e2f] btn-sm"
               type="button"
               onClick={() => {
                 const input = document.getElementById("uploadInput");
@@ -213,7 +213,7 @@ const PostAnArt = () => {
           </h1>
           <div className="flex justify-center">
             <button
-              className="btn btn-primary text-white"
+              className="btn bg-[#295e2f] hover:bg-green-800 text-[#fee67c] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg"
               type="submit"
               disabled={posting}
             >
