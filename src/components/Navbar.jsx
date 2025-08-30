@@ -84,7 +84,7 @@ const Navbar = () => {
               <Link to="/post/art">Post An Art</Link>
             </li>
             <li>
-              <Link to="/search/user">Search a User</Link>
+              <Link to="/search/art">Search Art</Link>
             </li>
           </ul>
         </div>
@@ -101,7 +101,7 @@ const Navbar = () => {
             <Link to="/post/art">Post An Art</Link>
           </li>
           <li>
-            <Link to="/search/user">Search a User</Link>
+            <Link to="/search/art">Search Art</Link>
           </li>
         </ul>
       </div>

@@ -67,13 +67,13 @@ const AdminNavbar = () => {
               <li className="pt-5">
                 <Link to="/admin/dashboard">
                   <FaCalendar className="text-primary" />
-                  <a>Dashboard</a>
+                  <span>Dashboard</span>
                 </Link>
               </li>
               <li>
                 <Link to="/admin/approved">
                   <BiSolidLike className="text-primary" />
-                  <a>Approved</a>
+                  <span>Approved</span>
                 </Link>
               </li>
               <li>
