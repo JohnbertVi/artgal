@@ -11,8 +11,6 @@ const ImageProtection = () => {
   useEffect(() => {
     // Set up screenshot detection variables
     let screenshotAttemptCount = 0;
-    let lastBlurTime = 0;
-    let isMouseOnImage = false;
     
     // Helper function to activate protection
     const activateProtection = (message, showAlert = false) => {
@@ -43,7 +41,7 @@ const ImageProtection = () => {
       // Show a transient overlay message on top of artworks (no blur)
       document.querySelectorAll('.art-overlay').forEach(overlay => {
         // Put an icon + message in the overlay
-        overlay.innerHTML = `<span class=\"protect-icon\">⚠</span><span class=\"protect-text\">${message}</span>`;
+        overlay.innerHTML = `<span class="protect-icon">⚠</span><span class="protect-text">${message}</span>`;
         overlay.classList.add('protection-visible');
         setTimeout(() => {
           overlay.classList.remove('protection-visible');
@@ -71,8 +69,6 @@ const ImageProtection = () => {
           watermark.classList.remove('watermark-visible');
         });
       }, Math.min(screenshotAttemptCount * 3000, 10000));
-
-      lastBlurTime = Date.now();
     };
     
     // Disable right-click
@@ -125,13 +121,11 @@ const ImageProtection = () => {
     // Mouse enter/leave for art containers - no blur, just track hover
     const handleMouseEnter = (e) => {
       if (e.target.classList && (e.target.classList.contains('art-container') || e.target.closest('.art-container'))) {
-        isMouseOnImage = true;
       }
     };
     
     const handleMouseLeave = (e) => {
       if (e.target.classList && (e.target.classList.contains('art-container') || e.target.closest('.art-container'))) {
-        isMouseOnImage = false;
       }
     };
     

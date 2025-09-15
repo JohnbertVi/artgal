@@ -1786,10 +1786,17 @@
     "@types/node" "*"
     jest-mock "^27.5.1"
 
+<<<<<<< HEAD
 "@jest/expect-utils@30.1.1":
   version "30.1.1"
   resolved "https://registry.yarnpkg.com/@jest/expect-utils/-/expect-utils-30.1.1.tgz#f57553f708b445a8d20c5b365bc9c84f87cba2ac"
   integrity sha512-5YUHr27fpJ64dnvtu+tt11ewATynrHkGYD+uSFgRr8V2eFJis/vEXgToyLwccIwqBihVfz9jwio+Zr1ab1Zihw==
+=======
+"@jest/expect-utils@30.1.2":
+  version "30.1.2"
+  resolved "https://registry.yarnpkg.com/@jest/expect-utils/-/expect-utils-30.1.2.tgz#88ea18040f707c9fadb6fd9e77568cae5266cee8"
+  integrity sha512-HXy1qT/bfdjCv7iC336ExbqqYtZvljrV8odNdso7dWK9bSeHtLlvwWWC3YSybSPL03Gg5rug6WLCZAZFH72m0A==
+>>>>>>> 312b542eaf50dfa6a2e3739b9a0242c8360ae76c
   dependencies:
     "@jest/get-type" "30.1.0"
 
@@ -3629,9 +3636,15 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001702, caniuse-lite@^1.0.30001737:
+<<<<<<< HEAD
   version "1.0.30001737"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001737.tgz#8292bb7591932ff09e9a765f12fdf5629a241ccc"
   integrity sha512-BiloLiXtQNrY5UyF0+1nSJLXUENuhka2pzy2Fx5pGxqavdrxSCW4U6Pn/PoG3Efspi2frRbHpBV2XsrPE6EDlw==
+=======
+  version "1.0.30001739"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001739.tgz#b34ce2d56bfc22f4352b2af0144102d623a124f4"
+  integrity sha512-y+j60d6ulelrNSwpPyrHdl+9mJnQzHBr08xm48Qno0nSk4h3Qojh+ziv2qE6rXf4k3tadF4o1J/1tAbVm1NtnA==
+>>>>>>> 312b542eaf50dfa6a2e3739b9a0242c8360ae76c
 
 case-sensitive-paths-webpack-plugin@^2.4.0:
   version "2.4.0"
@@ -5080,6 +5093,7 @@ expect@^27.5.1:
     jest-message-util "^27.5.1"
 
 expect@^30.0.0:
+<<<<<<< HEAD
   version "30.1.1"
   resolved "https://registry.yarnpkg.com/expect/-/expect-30.1.1.tgz#165bbdf514880bc9d4377b5b73716a38ab97b2ad"
   integrity sha512-OKe7cdic4qbfWd/CcgwJvvCrNX2KWfuMZee9AfJHL1gTYmvqjBjZG1a2NwfhspBzxzlXwsN75WWpKTYfsJpBxg==
@@ -5087,6 +5101,15 @@ expect@^30.0.0:
     "@jest/expect-utils" "30.1.1"
     "@jest/get-type" "30.1.0"
     jest-matcher-utils "30.1.1"
+=======
+  version "30.1.2"
+  resolved "https://registry.yarnpkg.com/expect/-/expect-30.1.2.tgz#094909c2443f76b9e208fafac4a315aaaf924580"
+  integrity sha512-xvHszRavo28ejws8FpemjhwswGj4w/BetHIL8cU49u4sGyXDw2+p3YbeDbj6xzlxi6kWTjIRSTJ+9sNXPnF0Zg==
+  dependencies:
+    "@jest/expect-utils" "30.1.2"
+    "@jest/get-type" "30.1.0"
+    jest-matcher-utils "30.1.2"
+>>>>>>> 312b542eaf50dfa6a2e3739b9a0242c8360ae76c
     jest-message-util "30.1.0"
     jest-mock "30.0.5"
     jest-util "30.0.5"
@@ -6348,10 +6371,17 @@ jest-config@^27.5.1:
     slash "^3.0.0"
     strip-json-comments "^3.1.1"
 
+<<<<<<< HEAD
 jest-diff@30.1.1:
   version "30.1.1"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-30.1.1.tgz#cfe8327c059178affac17d4c003e7096ad19583c"
   integrity sha512-LUU2Gx8EhYxpdzTR6BmjL1ifgOAQJQELTHOiPv9KITaKjZvJ9Jmgigx01tuZ49id37LorpGc9dPBPlXTboXScw==
+=======
+jest-diff@30.1.2:
+  version "30.1.2"
+  resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-30.1.2.tgz#8ff4217e5b63fef49a5b37462999d8f5299a4eb4"
+  integrity sha512-4+prq+9J61mOVXCa4Qp8ZjavdxzrWQXrI80GNxP8f4tkI2syPuPrJgdRPZRrfUTRvIoUwcmNLbqEJy9W800+NQ==
+>>>>>>> 312b542eaf50dfa6a2e3739b9a0242c8360ae76c
   dependencies:
     "@jest/diff-sequences" "30.0.1"
     "@jest/get-type" "30.1.0"
@@ -6467,6 +6497,7 @@ jest-leak-detector@^27.5.1:
     jest-get-type "^27.5.1"
     pretty-format "^27.5.1"
 
+<<<<<<< HEAD
 jest-matcher-utils@30.1.1:
   version "30.1.1"
   resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-30.1.1.tgz#e45419d966cd2e5e7d7ade6da747035c6a3b8afc"
@@ -6475,6 +6506,16 @@ jest-matcher-utils@30.1.1:
     "@jest/get-type" "30.1.0"
     chalk "^4.1.2"
     jest-diff "30.1.1"
+=======
+jest-matcher-utils@30.1.2:
+  version "30.1.2"
+  resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-30.1.2.tgz#3f1b63949f740025aff740c6c6a1b653ae370fbb"
+  integrity sha512-7ai16hy4rSbDjvPTuUhuV8nyPBd6EX34HkBsBcBX2lENCuAQ0qKCPb/+lt8OSWUa9WWmGYLy41PrEzkwRwoGZQ==
+  dependencies:
+    "@jest/get-type" "30.1.0"
+    chalk "^4.1.2"
+    jest-diff "30.1.2"
+>>>>>>> 312b542eaf50dfa6a2e3739b9a0242c8360ae76c
     pretty-format "30.0.5"
 
 jest-matcher-utils@^27.5.1:

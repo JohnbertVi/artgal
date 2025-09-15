@@ -194,7 +194,7 @@ const Profile = () => {
   return (
     <div className="min-full bg-gray-100 py-5 px-4 sm:px-6 lg:px-8">
       <div className=" mx-auto">
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">
+        <h1 className="text-4xl font-extrabold tracking-wide text-center text-gray-800 mb-8">
           My Profile
         </h1>
         <div className="">
@@ -243,7 +243,7 @@ const Profile = () => {
                     <div>
                       <button
                         onClick={() => handleEditWatermark(user)}
-                        className="btn btn-secondary text-white btn-xs md:btn-sm"
+                        className="btn bg-[#fee67c] hover:bg-[#e9d372] text-[#295e2f] btn-xs md:btn-sm"
                       >
                         Edit Watermark
                       </button>
@@ -265,7 +265,7 @@ const Profile = () => {
                 </div>
                 <div className="flex gap-5 p-5 justify-between">
                   <div className="flex justify-start w-full">
-                    <label className="btn btn-sm w-full btn-primary text-white">
+                    <label className="btn btn-sm w-full  bg-[#295e2f] hover:bg-green-800 text-white">
                       Change Avatar
                       <input
                         type="file"
@@ -277,7 +277,7 @@ const Profile = () => {
                   <div className=" w-full">
                     {/* Open the modal using document.getElementById('ID').showModal() method */}
                     <button
-                      className="btn w-full btn-sm btn-primary text-white"
+                      className="btn w-full btn-sm bg-[#295e2f] hover:bg-green-800 text-white"
                       onClick={() =>
                         document
                           .getElementById("my_modal_" + user.id)
@@ -390,9 +390,9 @@ const Profile = () => {
             ))}
         </div>
       </div>
-      <div className=" mt-1 mx-auto">
+      <div className=" mt-10 mx-auto">
         <div className="bg-white shadow overflow-hidden rounded-lg divide-y divide-gray-200">
-          <h1 className="text-center font-bold text-2xl">Your Arts</h1>
+          <h1 className="text-center my-5 font-bold text-3xl">Your Arts</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
             {artsData.map((art) => (
               <Link key={art.id} to={`/art/info/${art.id}`}>
@@ -409,7 +409,7 @@ const Profile = () => {
                       </div>
                     )}
                     {art.isApproved && (
-                      <div className="text-xs bg-primary text-center flex justify-center gap-2 items-center text-white rounded-md">
+                      <div className="text-xs bg-[#295e2f] text-center flex justify-center gap-2 items-center text-white rounded-md">
                         <FaCheckCircle className="" size={14} />
                         Approved by Admin
                       </div>
