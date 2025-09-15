@@ -9,7 +9,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import Swal from "sweetalert2";
-import logo from "../../assets/logowhite.png";
+import logo from "../../assets/logowhite.svg";
 import logospin from "../../assets/logospin.png";
 import { AiFillCloseCircle } from "react-icons/ai";
 import AdminNavbar from "./AdminNavbar";

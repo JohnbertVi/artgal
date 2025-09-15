@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { firestore, auth } from "../../firebaseConfig";
 import { collection, onSnapshot, doc, getDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
-import logo from "../../assets/logowhite.png";
+import logo from "../../assets/logowhite.svg";
 import logospin from "../../assets/logospin.png";
 import { AiFillCheckCircle } from "react-icons/ai";
 import AdminNavbar from "./AdminNavbar";

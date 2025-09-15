@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/logoblack.png";
+import logo from "../../assets/logoblack.svg";
 import Swal from "sweetalert2";
 import { auth } from "../../firebaseConfig";
 import { BiSolidLike } from "react-icons/bi";

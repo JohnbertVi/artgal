@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, firestore } from "../firebaseConfig";
 import Swal from "sweetalert2";
-import logoblack from "../assets/logoblack.png";
+import logoblack from "../assets/logoblack.svg";
 import { onSnapshot, doc } from "firebase/firestore";
 
 const Navbar = () => {
